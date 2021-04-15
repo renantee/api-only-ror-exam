@@ -1,9 +1,8 @@
 class Api::V1::PostsController < Api::V1::BaseController
 
-  api :GET, '/post?page=:page'
-  param :page, :number, desc: 'set current page'
+  api :GET, "/posts", "Posts List"
   def index
-    render json: { result: [] }
+    render json: { result: [{ name: "post 1"}] }
   end
 
 end
