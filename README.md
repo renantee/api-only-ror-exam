@@ -51,7 +51,7 @@ App Required Gems
   - Devise or  bcrypt
   - Devise-jwt or  jwt
   - json-jbuilder ( json formater )
-  - apipie-rails  ( api documentation )
+  - apipie-rails  ( api documentation https://github.com/Apipie/apipie-demo )
   - RSPEC ( application testing )
   - factory bot ( test defination syntax )
   - Cloudinary ( third part image storage )
