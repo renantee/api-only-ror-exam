@@ -39,6 +39,9 @@ group :development, :test do
 
   gem 'guard', require: false
   gem 'guard-rubocop', require: false
+
+   gem 'factory_bot_rails'
+  gem 'rspec-rails'
 end
 
 group :development do
