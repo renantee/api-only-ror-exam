@@ -17,12 +17,12 @@ NODE v14.15.3
 
 Start Server
 ```
-  rails s
+  rails s -p < PORT >
 ```
 
-MANUAL: Running Rubocop Server https://github.com/rubocop/rubocop
+( USE THIS ) AUTO RUN BOTH  RUBOCOP / RAILS BEST PRACTICE USING GUARD
 ```
-  bundle exec rubocop
+ bundle exec guard
 ```
 
 MANUAL: Auto Correct Rubo Cup
@@ -30,38 +30,44 @@ MANUAL: Auto Correct Rubo Cup
  bundle exec rubocop --safe-auto-correct
 ```
 
-MANUAL: Running Rails Best Practice https://github.com/flyerhzm/rails_best_practices
+OR MANUAL: Running Rubocop Server https://github.com/rubocop/rubocop
+```
+  bundle exec rubocop
+```
+
+OR MANUAL: Running Rails Best Practice https://github.com/flyerhzm/rails_best_practices
 ```
 bundle exec rails_best_practices .
 ```
 
-( USE THIS )AUTO RUN BOTH  RUBOCOP / RAILS BEST PRACTICE USING GUARD
-```
- bundle exec guard
-```
 Run Rspec Testing https://github.com/rspec/rspec-rails
 
 ```
-bundle exec  rspec spec
+bundle exec rspec spec
 ```
 ---
 
 App Required Gems
 ```
-  - Devise or  bcrypt
-  - Devise-jwt or  jwt
-  - json-jbuilder ( json formater )
-  - apipie-rails  ( api documentation https://github.com/Apipie/apipie-demo )
+  - Bcrypt ( for Authentication )
+  - json jbuilder ( json formater )
+  - Cloudinary ( third party image storage )
+  - Act as Paranoid ( for soft deletion )
   - RSPEC ( application testing )
   - factory bot ( test defination syntax )
-  - Cloudinary ( third part image storage )
-  - Act as Paranoid ( for soft deletion )
 ```
 
-App Auto Checker
+Optional Gems
+```
+  - JWT ( for Authorization )
+  - apipie-rails  ( api documentation https://github.com/Apipie/apipie-demo )
+```
+
+App Code Checker
 https://github.com/rubocop/rubocop
 https://github.com/flyerhzm/rails_best_practices
 ```
-  - Rubocop ( development linter )
-  - Rails Best Practice ( community standard practices )
+  - Rubocop ( Development Code Linter )
+  - Rails Best Practice ( Community Standard Practices )
+  - Rspec ( Request Testing and Code Protection )
 ```
