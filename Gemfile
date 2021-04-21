@@ -42,6 +42,7 @@ group :development, :test do
 
    gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'bullet'
 end
 
 group :development do
@@ -50,7 +51,6 @@ group :development do
   gem 'spring'
 
   #for n+1 queries
-  gem 'bullet'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
