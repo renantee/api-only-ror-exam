@@ -288,6 +288,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bullet
   byebug
+  factory_bot
   factory_bot_rails
   guard
   guard-rails_best_practices!
