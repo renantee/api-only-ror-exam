@@ -44,4 +44,10 @@ en:
               blank: "The password field is required"
             password_confirmation:
               confirmation: "The password confirmation does not match."
+        post:
+          attributes:
+            title:
+              blank: "The title field is required"
+            content:
+              blank: "The content field is required"
               
