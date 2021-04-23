@@ -1,4 +1,4 @@
-if @post.save()
+if @post.save
   json.data do
     json.title @post.title
     json.slug @post.slug

@@ -1,5 +1,5 @@
 class Api::V1::PostsController < Api::V1::BaseController
-  before_action :set_post, only: %i[show]
+  before_action :set_post, only: %i[show update]
 
   api :GET, "/posts", "Posts List"
   def index
@@ -13,6 +13,11 @@ class Api::V1::PostsController < Api::V1::BaseController
   def create
     @post = Post.new(post_params)
     @post.user = User.first
+  end
+
+  api :PATCH, "/posts/{post}", "Update Post"
+  def update
+    @post.update(post_params)
   end
 
   private
