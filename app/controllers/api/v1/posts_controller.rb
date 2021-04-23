@@ -4,13 +4,10 @@ class Api::V1::PostsController < Api::V1::BaseController
   api :GET, "/posts", "Posts List"
   def index
     @posts = Post.all
-    render json: @posts, status: :ok
   end
 
   api :GET, "/posts/{post}", "Show Post"
-  def show
-    render json: @post
-  end
+  def show; end
 
   private
 
