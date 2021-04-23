@@ -1,5 +1,5 @@
 class Api::V1::PostsController < Api::V1::BaseController
-  before_action :set_post, only: %i[show update]
+  before_action :set_post, only: %i[show update destroy]
 
   api :GET, "/posts", "Posts List"
   def index
@@ -18,6 +18,11 @@ class Api::V1::PostsController < Api::V1::BaseController
   api :PATCH, "/posts/{post}", "Update Post"
   def update
     @post.update(post_params)
+  end
+
+  api :DELETE, "/posts/{post}", "Delete Post"
+  def destroy
+    @post.destroy
   end
 
   private

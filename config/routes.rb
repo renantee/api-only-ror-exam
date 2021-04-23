@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :posts, only: [:index, :show, :create, :update], param: :slug do
+      resources :posts, only: [:index, :show, :create, :update, :destroy], param: :slug do
         resources :comments, only: [:index]
       end
       resources :register, only: [:create]
