@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  acts_as_paranoid
   after_validation :set_slug, only: %i[create update]
   belongs_to :user
   validates :title, :content, presence: true
