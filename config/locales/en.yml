@@ -30,4 +30,18 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "The name field is required"
+            email:
+              blank: "The email field is required"
+              taken: "The email has already been taken."
+            password:
+              blank: "The password field is required"
+            password_confirmation:
+              confirmation: "The password confirmation does not match."
+              
