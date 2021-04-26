@@ -7,7 +7,9 @@ class Api::V1::LoginController < Api::V1::BaseController
     if @errors.empty?
       @user = User.find_by(email: params[:login][:email].downcase)
 
-      if !@user || !@user.authenticate(params[:login][:password])
+      if @user && @user.authenticate(params[:login][:password])
+        @token = encode_token({ user_id: @user.id })
+      else
         @errors["email"] = ["These credentials do not match our records."]
       end
     end
