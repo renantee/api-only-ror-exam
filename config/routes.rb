@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :register, only: [:create]
       resources :login, only: [:create]
+      resources :logout, only: [:create]
     end
   end
 
