@@ -6,9 +6,13 @@ class Api::V1::CommentsController < ApplicationController
   def index; end
 
   def create
-    if params[:comment][:body].present?
+    @errors = {}
+    @errors["body"] = [validation("body")] if validation("body").present?
+
+    if @errors.empty? && @commentable
       @comment = @commentable.comments.new comment_params
       @comment.user = logged_in_user
+      @comment.save
     end
   end
 
