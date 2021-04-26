@@ -1,4 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
+  before_action :authorized, except: %i[index]
   before_action :set_commentable
 
   def index; end

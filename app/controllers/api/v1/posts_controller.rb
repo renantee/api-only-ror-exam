@@ -1,4 +1,5 @@
 class Api::V1::PostsController < Api::V1::BaseController
+  before_action :authorized, except: %i[index show]
   before_action :set_post, only: %i[show update destroy]
 
   api :GET, "/posts", "Posts List"
