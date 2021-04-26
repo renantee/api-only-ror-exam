@@ -9,6 +9,8 @@ class Api::V1::LoginController < Api::V1::BaseController
 
       if @user && @user.authenticate(params[:login][:password])
         @token = encode_token({ user_id: @user.id })
+        # Remove token from Blacklist
+        Blacklist.find_by(token: @token)&.destroy
       else
         @errors["email"] = ["These credentials do not match our records."]
       end
