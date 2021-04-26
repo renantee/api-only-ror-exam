@@ -13,7 +13,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   api :POST, "/posts", "Create Post"
   def create
     @post = Post.new(post_params)
-    @post.user = User.first
+    @post.user = logged_in_user
   end
 
   api :PATCH, "/posts/{post}", "Update Post"

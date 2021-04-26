@@ -8,7 +8,7 @@ class Api::V1::CommentsController < ApplicationController
   def create
     if params[:comment][:body].present?
       @comment = @commentable.comments.new comment_params
-      @comment.user = User.first
+      @comment.user = logged_in_user
     end
   end
 
