@@ -1,7 +1,7 @@
 class Api::V1::CommentsController < ApplicationController
   before_action :authorized, except: %i[index]
   before_action :set_commentable
-  before_action :set_comment, only: %i[update]
+  before_action :set_comment, only: %i[update destroy]
 
   def index; end
 
@@ -20,6 +20,10 @@ class Api::V1::CommentsController < ApplicationController
       @comment.user = User.first
       @comment.update(comment_params)
     end
+  end
+
+  def destroy
+    @comment.destroy
   end
 
   private
