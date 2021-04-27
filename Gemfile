@@ -13,6 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'acts_as_paranoid', '~> 0.7.0'
 gem 'cloudinary'
+gem 'kaminari'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
