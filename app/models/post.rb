@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  paginates_per 15
   acts_as_paranoid
   after_validation :set_slug, only: %i[create update]
   after_validation :set_image, only: %i[create]
