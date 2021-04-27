@@ -12,8 +12,8 @@ Rails.application.routes.draw do
         resources :comments, only: [:index, :create, :update, :destroy]
       end
       resources :register, only: [:create]
-      resources :login, only: [:create]
-      resources :logout, only: [:create]
+      post 'login', to: "auth#login"
+      post 'logout', to: "auth#logout"
     end
   end
 
