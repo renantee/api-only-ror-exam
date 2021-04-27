@@ -4,5 +4,5 @@ if !@errors.empty?
 else
   json.token @token
   json.token_type "bearer"
-  json.expires_at 24.hours.from_now
+  json.expires_at Time.at(@exp)
 end
