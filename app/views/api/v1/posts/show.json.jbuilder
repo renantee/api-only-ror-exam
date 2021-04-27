@@ -6,8 +6,8 @@ if @post
     json.slug @post.slug
     json.image @post.image
     json.content @post.content
-    json.created_at @post.created_at
-    json.updated_at @post.updated_at
+    json.created_at @post.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    json.updated_at @post.updated_at.strftime("%Y-%m-%d %H:%M:%S")
   end
 else
   json.message "No query results for model [App\\Post]."
