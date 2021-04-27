@@ -14,6 +14,7 @@ gem 'jwt'
 gem 'acts_as_paranoid', '~> 0.7.0'
 gem 'cloudinary'
 gem 'kaminari'
+gem 'rspec-json_matcher'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
