@@ -9,7 +9,7 @@ RSpec.describe "Posts", type: :request do
 
   describe "GET /api/posts#index" do
     before do
-      get "/api/posts"
+      get "/api/posts?page=1"
     end
 
     it "returns http success" do
@@ -38,11 +38,11 @@ RSpec.describe "Posts", type: :request do
                                             },
                                             meta:  {
                                               current_page: 1,
-                                              from:         0,
+                                              from:         1,
                                               last_page:    1,
                                               path:         "http://127.0.0.1:8000/api/posts",
                                               per_page:     15,
-                                              to:           0,
+                                              to:           1,
                                               total:        1
                                             }
                                           })
