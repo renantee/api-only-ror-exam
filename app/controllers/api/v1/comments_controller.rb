@@ -2,28 +2,23 @@ class Api::V1::CommentsController < ApplicationController
   before_action :authorized, except: %i[index]
   before_action :set_commentable
   before_action :set_comment, only: %i[update destroy]
+  before_action :set_errors, only: %i[create update]
 
   def index; end
 
   def create
-    @errors = {}
-    @errors["body"] = [validation("body")] if validation("body").present?
+    return unless @errors.empty? && @commentable
 
-    if @errors.empty? && @commentable
-      @comment = @commentable.comments.new comment_params
-      @comment.user = logged_in_user
-      @comment.save
-    end
+    @comment = @commentable.comments.new comment_params
+    @comment.user = logged_in_user
+    @comment.save
   end
 
   def update
-    @errors = {}
-    @errors["body"] = [validation("body")] if validation("body").present?
+    return unless @errors.empty?
 
-    if @errors.empty?
-      @comment.user = User.first
-      @comment.update(comment_params)
-    end
+    @comment.user = logged_in_user
+    @comment.update(comment_params)
   end
 
   def destroy
@@ -46,5 +41,10 @@ class Api::V1::CommentsController < ApplicationController
 
   def validation(field)
     "The #{field} field is required." if params[field].blank?
+  end
+
+  def set_errors
+    @errors = {}
+    @errors["body"] = [validation("body")] if validation("body").present?
   end
 end

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
 
   def decoded_token
     if auth_header
-      token = auth_header.split(" ")[1]
+      token = auth_header.split[1]
       # header: { 'Authorization': 'Bearer <token>' }
       begin
         JWT.decode(token, SECRET_KEY, true, algorithm: "HS256")
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
 
   def expired_token
     if auth_header
-      token = auth_header.split(" ")[1]
+      token = auth_header.split[1]
       @blacklist = Blacklist.find_by(token: token)
     end
   end
