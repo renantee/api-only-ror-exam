@@ -10,11 +10,12 @@ gem 'pg'
 gem 'factory_bot'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem 'jwt'
+gem 'jwt', '~> 1.5'
 gem 'acts_as_paranoid', '~> 0.7.0'
 gem 'cloudinary'
 gem 'kaminari'
 gem 'rspec-json_matcher'
+gem 'knock'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
