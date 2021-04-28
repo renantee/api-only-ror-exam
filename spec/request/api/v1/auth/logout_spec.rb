@@ -1,13 +1,5 @@
 require "rails_helper"
 
-def authenticated_header
-  token = Knock::AuthToken.new(payload: { sub: @user.id }).token
-
-  {
-    Authorization: "Bearer #{token}"
-  }
-end
-
 RSpec.describe "Auth", type: :request do
   before do
     @user = create(:user)
@@ -15,7 +7,7 @@ RSpec.describe "Auth", type: :request do
 
   describe "POST /api/logout" do
     before do
-      post api_logout_path, headers: authenticated_header
+      post api_logout_path, headers: authenticated_header(@user)
     end
 
     it "returns http success" do
