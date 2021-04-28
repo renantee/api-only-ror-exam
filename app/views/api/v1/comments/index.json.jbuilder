@@ -1,4 +1,4 @@
-if @post
+if @commentable
   json.data @commentable.comments do |comment|
     json.id comment.id
     json.title comment.title
