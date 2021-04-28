@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :post do
-    title { "MyString" }
-    slug { "MyString" }
-    content { "MyText" }
+    title { "Post title" }
+    slug { "post-title" }
+    content { "Post content" }
     user { nil }
   end
 end
