@@ -10,7 +10,7 @@ RSpec.describe "Posts", type: :request do
 
   describe "GET /api/posts/{post}/comments" do
     before do
-      get "/api/posts/#{@comment.commentable.slug}/comments?page=1"
+      get "/api/posts/#{@post.slug}/comments?page=1"
     end
 
     it "returns http success" do
