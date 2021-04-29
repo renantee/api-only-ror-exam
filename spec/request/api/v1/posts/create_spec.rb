@@ -1,5 +1,16 @@
 require "rails_helper"
 
+def expected_post_create(post)
+  {
+    data: {
+      "title"      => post.title, "content" => post.content, "slug" => post.slug,
+      "updated_at" => post.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
+      "created_at" => post.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+      "id"         => post.id, "user_id" => post.user_id
+    }
+  }
+end
+
 RSpec.describe "Posts", type: :request do
   before do
     create(:user) do |user|
@@ -19,17 +30,7 @@ RSpec.describe "Posts", type: :request do
 
     it "returns response match to expected json" do
       @last_post = Post.last
-      expect(response.body).to be_json_as({
-                                            data: {
-                                              "title"      => @last_post.title,
-                                              "content"    => @last_post.content,
-                                              "slug"       => @last_post.slug,
-                                              "updated_at" => @last_post.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
-                                              "created_at" => @last_post.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-                                              "id"         => @last_post.id,
-                                              "user_id"    => @last_post.user_id
-                                            }
-                                          })
+      expect(response.body).to be_json_as(expected_post_create(@last_post))
     end
   end
 end

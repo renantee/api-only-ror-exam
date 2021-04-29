@@ -1,5 +1,17 @@
 require "rails_helper"
 
+def expected_post_update(post, post_params)
+  {
+    data: {
+      "id" => post.id, "user_id" => post.user_id, "title" => post_params[:title],
+      "slug" => post_params[:title].to_s.parameterize, "content" => post_params[:content],
+      "created_at" => post.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+      "updated_at" => post.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
+      "deleted_at" => nil
+    }
+  }
+end
+
 RSpec.describe "Posts", type: :request do
   before do
     create(:user) do |user|
@@ -20,18 +32,7 @@ RSpec.describe "Posts", type: :request do
       end
 
       it "returns response match to expected json" do
-        expect(response.body).to be_json_as({
-                                              data: {
-                                                "id"         => @post.id,
-                                                "user_id"    => @post.user_id,
-                                                "title"      => @post_params[:title],
-                                                "slug"       => "new-title",
-                                                "content"    => @post_params[:content],
-                                                "created_at" => @post.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-                                                "updated_at" => @post.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
-                                                "deleted_at" => nil
-                                              }
-                                            })
+        expect(response.body).to be_json_as(expected_post_update(@post, @post_params))
       end
     end
   end
