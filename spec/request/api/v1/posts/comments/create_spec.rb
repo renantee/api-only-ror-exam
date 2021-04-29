@@ -1,6 +1,6 @@
 require "rails_helper"
 
-def expected_comment(comment)
+def expected_comment_create(comment)
   {
     data: {
       "body" => comment.body, "commentable_type" => comment.commentable_type,
@@ -33,7 +33,7 @@ RSpec.describe "Comments", type: :request do
 
       it "returns response match to expected json" do
         @last_comment = Comment.last
-        expect(response.body).to be_json_as(expected_comment(@last_comment))
+        expect(response.body).to be_json_as(expected_comment_create(@last_comment))
       end
     end
   end

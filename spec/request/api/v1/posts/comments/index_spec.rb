@@ -1,6 +1,6 @@
 require "rails_helper"
 
-def expected_comment(comment)
+def expected_comment_index(comment)
   {
     data: [{
       "id" => comment.id, "title" => comment.title, "body" => comment.body,
@@ -30,7 +30,7 @@ RSpec.describe "Comments", type: :request do
     end
 
     it "returns response match to expected json" do
-      expect(response.body).to be_json_as(expected_comment(@comment))
+      expect(response.body).to be_json_as(expected_comment_index(@comment))
     end
   end
 end

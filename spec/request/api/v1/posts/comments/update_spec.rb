@@ -1,6 +1,6 @@
 require "rails_helper"
 
-def expected_comment(comment, comment_params)
+def expected_comment_update(comment, comment_params)
   {
     data: {
       "id" => comment.id, "title" => comment.title, "body" => comment_params[:body],
@@ -34,7 +34,7 @@ RSpec.describe "Comments", type: :request do
       end
 
       it "returns response match to expected json" do
-        expect(response.body).to be_json_as(expected_comment(@comment, @comment_params))
+        expect(response.body).to be_json_as(expected_comment_update(@comment, @comment_params))
       end
     end
   end
