@@ -30,7 +30,12 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def destroy
-    @comment.destroy
+    if @comment.blank?
+      render_messages_not_found
+    else
+      @comment.destroy
+      render_messages_ok
+    end
   end
 
   private
