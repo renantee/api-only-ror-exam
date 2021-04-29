@@ -2,15 +2,14 @@ class Api::V1::AuthController < Api::V1::BaseController
   before_action :set_errors, only: %i[login]
 
   def login
-    return unless @errors.empty?
-
     @user = User.find_by(email: params[:email].downcase)
 
     if @user&.authenticate(params[:password])
-      @exp = Time.now.to_i + 24 * 3600
+      @exp = 24.hours.from_now.to_i
       @token = encode_token({ user_id: @user.id, exp: @exp })
     else
       @errors["email"] = ["These credentials do not match our records."]
+      render_messages_errors
     end
   end
 
@@ -30,5 +29,7 @@ class Api::V1::AuthController < Api::V1::BaseController
     @errors = {}
     @errors["email"] = [validation("email")] if validation("email").present?
     @errors["password"] = [validation("password")] if validation("password").present?
+
+    render_messages_errors unless @errors.empty?
   end
 end
