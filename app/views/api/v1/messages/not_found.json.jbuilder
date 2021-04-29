@@ -1,6 +1,6 @@
 controller_action = "#{request.parameters['controller']}/#{request.parameters['action']}"
 case controller_action
-when 'api/v1/posts/show', 'api/v1/posts/update'
+when 'api/v1/posts/show', 'api/v1/posts/update', 'api/v1/posts/destroy'
   message = "No query results for model [App\\Post]."
 when 'api/v1/comments/index'
   message = "No query results for commentable [Post]."

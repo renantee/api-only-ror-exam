@@ -1,8 +1,11 @@
-case request.path
-when '/api/logout'
+controller_action = "#{request.parameters['controller']}/#{request.parameters['action']}"
+case controller_action
+when 'api/v1/auth/logout'
   status = "user logged-out successfully"
+when 'api/v1/posts/destroy'
+  status = "record deleted successfully"
 else
-  status = request.path
+  status = controller_action
 end
 
 json.status status

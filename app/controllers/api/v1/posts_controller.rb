@@ -43,7 +43,12 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   api :DELETE, "/posts/{post}", "Delete Post"
   def destroy
-    @post.destroy
+    if @post.blank?
+      render_messages_not_found
+    else
+      @post.destroy
+      render_messages_ok
+    end
   end
 
   private
