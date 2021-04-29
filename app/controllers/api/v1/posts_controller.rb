@@ -6,7 +6,6 @@ class Api::V1::PostsController < Api::V1::BaseController
   api :GET, "/posts", "Posts List"
   def index
     @posts = Post.page(@page).order(created_at: :desc)
-    @meta = pagination_dict(@posts)
     @path = "http://127.0.0.1:8000#{request.path}"
     @from = (@page.to_i - 1) * @posts.limit_value + 1
     @to = @from + @posts.count - 1
