@@ -3,17 +3,19 @@ class Api::V1::CommentsController < Api::V1::BaseController
   before_action :set_commentable
   before_action :set_comment, only: %i[update destroy]
   before_action :set_errors, only: %i[create update]
+  before_action :post_not_found, only: %i[index create]
 
-  def index
-    render_messages_not_found unless @commentable
-  end
+  def index; end
 
   def create
-    return unless @errors.empty? && @commentable
-
     @comment = @commentable.comments.new comment_params
     @comment.user = logged_in_user
-    @comment.save
+    if @comment.save
+      render "create", format: :json, status: :created
+    else
+      @errors = @post.errors
+      render_messages_errors
+    end
   end
 
   def update
@@ -46,7 +48,15 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def set_errors
+    return if params[:comment].present?
+
     @errors = {}
     @errors["body"] = [validation("body")] if validation("body").present?
+
+    render_messages_errors unless @errors.empty?
+  end
+
+  def post_not_found
+    render_messages_not_found if @commentable.blank?
   end
 end
