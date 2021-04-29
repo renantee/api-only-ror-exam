@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   paginates_per 15
   acts_as_paranoid
   after_validation :set_slug, only: %i[create update]
+  after_validation :upload_image, only: %i[create]
   after_validation :set_image, only: %i[create]
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy

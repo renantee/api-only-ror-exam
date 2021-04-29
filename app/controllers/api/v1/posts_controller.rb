@@ -23,7 +23,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   api :PATCH, "/posts/{post}", "Update Post"
   def update
-    @post.update(post_params)
+    @post.update(post_params) if @post.present?
   end
 
   api :DELETE, "/posts/{post}", "Delete Post"
