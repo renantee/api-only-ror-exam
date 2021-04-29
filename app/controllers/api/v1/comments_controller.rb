@@ -1,10 +1,12 @@
-class Api::V1::CommentsController < ApplicationController
+class Api::V1::CommentsController < Api::V1::BaseController
   before_action :authorized, except: %i[index]
   before_action :set_commentable
   before_action :set_comment, only: %i[update destroy]
   before_action :set_errors, only: %i[create update]
 
-  def index; end
+  def index
+    render_messages_not_found unless @commentable
+  end
 
   def create
     return unless @errors.empty? && @commentable
