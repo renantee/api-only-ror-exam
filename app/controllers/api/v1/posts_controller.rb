@@ -12,7 +12,9 @@ class Api::V1::PostsController < Api::V1::BaseController
   end
 
   api :GET, "/posts/{post}", "Show Post"
-  def show; end
+  def show
+    render_messages_not_found unless @post
+  end
 
   api :POST, "/posts", "Create Post"
   def create
