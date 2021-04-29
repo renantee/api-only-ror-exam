@@ -3,7 +3,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   before_action :set_commentable
   before_action :set_comment, only: %i[update destroy]
   before_action :set_errors, only: %i[create update]
-  before_action :post_not_found, only: %i[index create]
+  before_action :post_not_found, only: %i[index create update]
 
   def index; end
 
@@ -19,10 +19,14 @@ class Api::V1::CommentsController < Api::V1::BaseController
   end
 
   def update
-    return unless @errors.empty?
-
-    @comment.user = logged_in_user
-    @comment.update(comment_params)
+    if @comment.blank?
+      render_messages_not_found
+    else
+      unless @comment.update(comment_params)
+        @errors = @comment.errors
+        render_messages_errors
+      end
+    end
   end
 
   def destroy
@@ -32,7 +36,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   private
 
   def set_comment
-    @comment = Comment.find_by(id: params[:id])
+    @comment = @commentable.comments.find_by(id: params[:id]) if @commentable.present?
   end
 
   def set_commentable
