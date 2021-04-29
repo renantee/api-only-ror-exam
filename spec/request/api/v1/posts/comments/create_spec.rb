@@ -1,5 +1,17 @@
 require "rails_helper"
 
+def expected_comment(comment)
+  {
+    data: {
+      "body" => comment.body, "commentable_type" => comment.commentable_type,
+      "commentable_id" => comment.commentable_id, "creator_id" => comment.user_id,
+      "parent_id" => comment.parent_id,
+      "created_at" => comment.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+      "updated_at" => comment.updated_at.strftime("%Y-%m-%d %H:%M:%S"), "id" => comment.id
+    }
+  }
+end
+
 RSpec.describe "Comments", type: :request do
   before do
     create(:user) do |user|
@@ -21,18 +33,7 @@ RSpec.describe "Comments", type: :request do
 
       it "returns response match to expected json" do
         @last_comment = Comment.last
-        expect(response.body).to be_json_as({
-                                              data: {
-                                                "body"             => @last_comment.body,
-                                                "commentable_type" => @last_comment.commentable_type,
-                                                "commentable_id"   => @last_comment.commentable_id,
-                                                "creator_id"       => @last_comment.user_id,
-                                                "parent_id"        => @last_comment.parent_id,
-                                                "created_at"       => @last_comment.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-                                                "updated_at"       => @last_comment.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
-                                                "id"               => @last_comment.id
-                                              }
-                                            })
+        expect(response.body).to be_json_as(expected_comment(@last_comment))
       end
     end
   end
