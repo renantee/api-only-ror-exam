@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Posts", type: :request do
+RSpec.describe "Comments", type: :request do
   before do
     create(:user) do |user|
       @post = user.posts.create(attributes_for(:post))
@@ -8,7 +8,7 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
-  describe "GET /api/posts/{post}/comments" do
+  describe "GET /api/posts/{post}/comments#index" do
     before do
       get "/api/posts/#{@post.slug}/comments?page=1"
     end
