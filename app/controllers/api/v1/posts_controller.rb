@@ -2,6 +2,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   before_action :authorized, except: %i[index show]
   before_action :set_post, only: %i[show update destroy]
   before_action :set_page, only: %i[index]
+  before_action :render_errors, only: %i[create]
 
   api :GET, "/posts", "Posts List"
   def index
@@ -20,6 +21,12 @@ class Api::V1::PostsController < Api::V1::BaseController
   def create
     @post = Post.new(post_params)
     @post.user = logged_in_user
+    if @post.save
+      render "create", format: :json, status: :created
+    else
+      @errors = @post.errors
+      render_messages_errors
+    end
   end
 
   api :PATCH, "/posts/{post}", "Update Post"
@@ -44,5 +51,19 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   def set_page
     @page = params[:page] || 0
+  end
+
+  def validation(field)
+    "The #{field} field is required."
+  end
+
+  def render_errors
+    return if params[:post].present?
+
+    @errors = {}
+    @errors["title"] = [validation("title")]
+    @errors["content"] = [validation("content")]
+
+    render_messages_errors unless @errors.empty?
   end
 end
