@@ -9,6 +9,3 @@ json.data @commentable.comments do |comment|
   json.created_at comment.created_at.strftime("%Y-%m-%d %H:%M:%S")
   json.updated_at comment.updated_at.strftime("%Y-%m-%d %H:%M:%S")
 end
-# else
-#   json.message "No query results for commentable [Post]."
-# end

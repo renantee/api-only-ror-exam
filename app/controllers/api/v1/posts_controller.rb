@@ -2,7 +2,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   before_action :authorized, except: %i[index show]
   before_action :set_post, only: %i[show update destroy]
   before_action :set_page, only: %i[index]
-  before_action :render_errors, only: %i[create]
+  before_action :render_errors, only: %i[create update]
 
   api :GET, "/posts", "Posts List"
   def index
@@ -31,7 +31,14 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   api :PATCH, "/posts/{post}", "Update Post"
   def update
-    @post.update(post_params) if @post.present?
+    if @post.blank?
+      render_messages_not_found
+    else
+      unless @post.update(post_params)
+        @errors = @post.errors
+        render_messages_errors
+      end
+    end
   end
 
   api :DELETE, "/posts/{post}", "Delete Post"
