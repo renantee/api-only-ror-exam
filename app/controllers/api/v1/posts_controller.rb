@@ -3,6 +3,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   before_action :set_post, only: %i[show update destroy]
   before_action :set_page, only: %i[index]
   before_action :render_errors, only: %i[create update]
+  before_action :require_same_user, only: %i[update destroy]
 
   api :GET, "/posts", "Posts List"
   def index
@@ -77,5 +78,10 @@ class Api::V1::PostsController < Api::V1::BaseController
     @errors["content"] = [validation("content")]
 
     render_messages_errors unless @errors.empty?
+  end
+
+  # Update/delete post restriction
+  def require_same_user
+    render_messages_forbidden if logged_in_user != @post.user
   end
 end

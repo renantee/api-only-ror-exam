@@ -8,7 +8,7 @@ when "api/v1/comments/create", "api/v1/comments/update", "api/v1/comments/destro
   message = "No query results for model [Commentable\\Models\\Comment]"
   exception = "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException"
 else
-  message = controller_action
+  message = nil
 end
 
 json.message message

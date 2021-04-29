@@ -5,7 +5,7 @@ when "api/v1/auth/logout"
 when "api/v1/posts/destroy", "api/v1/comments/destroy"
   status = "record deleted successfully"
 else
-  status = controller_action
+  status = nil
 end
 
 json.status status

@@ -4,6 +4,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   before_action :set_comment, only: %i[update destroy]
   before_action :set_errors, only: %i[create update]
   before_action :post_not_found, only: %i[index create update]
+  before_action :require_same_user, only: %i[update destroy]
 
   def index; end
 
@@ -67,5 +68,10 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   def post_not_found
     render_messages_not_found if @commentable.blank?
+  end
+
+  # Update/delete comment restriction
+  def require_same_user
+    render_messages_forbidden if logged_in_user != @comment.user
   end
 end
