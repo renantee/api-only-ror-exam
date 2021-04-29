@@ -1,5 +1,24 @@
 require "rails_helper"
 
+def expected_token
+  {
+    token:      /^.*/,
+    token_type: "bearer",
+    expires_at: /^\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d/
+  }
+end
+
+def message_invalid_credentials
+  {
+    message: "The given data was invalid.",
+    errors:  {
+      email: [
+        "These credentials do not match our records."
+      ]
+    }
+  }
+end
+
 RSpec.describe "Auth", type: :request do
   before do
     create(:user) do |user|
@@ -15,14 +34,8 @@ RSpec.describe "Auth", type: :request do
         post api_login_path, params: @valid_credentials
       end
 
-      it "returns http success" do
-        expect(response).to have_http_status(:success)
-      end
-
       it "returns response match to expected json" do
-        expect(response.body).to be_json_as({ token:      /^.*/,
-                                              token_type: "bearer",
-                                              expires_at: /^\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d/ })
+        expect(response.body).to be_json_as(expected_token)
       end
     end
 
@@ -33,12 +46,7 @@ RSpec.describe "Auth", type: :request do
       end
 
       it "returns response match to expected json" do
-        expect(response.body).to be_json_as({ message: "The given data was invalid.",
-                                              errors:  {
-                                                email: [
-                                                  "These credentials do not match our records."
-                                                ]
-                                              } })
+        expect(response.body).to be_json_as(message_invalid_credentials)
       end
     end
   end
