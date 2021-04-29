@@ -94,3 +94,11 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+
+def login_user(user)
+  post "/api/login", params: { email: user.email, password: user.password }
+  @token = "Bearer #{JSON.parse(response.body)['token']}"
+  @headers = {
+    Accept: "application/json", 'Content-Type': "application/json", Authorization: @token
+  }
+end
