@@ -11,10 +11,6 @@ RSpec.describe "Auth", type: :request do
       post api_logout_path, headers: @headers
     end
 
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
-
     it "returns response match to expected json" do
       expect(response.body).to be_json_as({ status: "user logged-out successfully" })
     end
