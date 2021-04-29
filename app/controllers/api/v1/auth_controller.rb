@@ -16,7 +16,7 @@ class Api::V1::AuthController < Api::V1::BaseController
   def logout
     token = auth_header.split[1]
     Blacklist.create(token: token)
-    render json: { message: "user logged-out successfully" }, status: :ok
+    render_messages_ok
   end
 
   private

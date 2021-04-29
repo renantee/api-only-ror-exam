@@ -16,7 +16,7 @@ RSpec.describe "Auth", type: :request do
     end
 
     it "returns response match to expected json" do
-      expect(response.body).to be_json_as({ message: "user logged-out successfully" })
+      expect(response.body).to be_json_as({ status: "user logged-out successfully" })
     end
   end
 end
