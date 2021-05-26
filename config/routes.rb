@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :register, only: [:create]
       post 'login', to: "auth#login"
       post 'logout', to: "auth#logout"
+      patch 'change-password', to: "passwords#update"
     end
   end
 
