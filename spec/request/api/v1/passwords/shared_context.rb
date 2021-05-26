@@ -53,8 +53,8 @@ end
 def fields_cannot_be_blank
   {
     message: "The given data was invalid.",
-    errors:  { new_password:              ["New Password can't be blank"],
-               new_password_confirmation: ["Password Confirmation can't be blank"],
-               current_password:          ["Current Password can't be blank"] }
+    errors:  { password:              ["New Password can't be blank"],
+               password_confirmation: ["Password Confirmation can't be blank"],
+               current_password:      ["Current Password can't be blank"] }
   }
 end

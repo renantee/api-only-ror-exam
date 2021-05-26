@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :new_password, :new_password_confirmation, :current_password
+  attr_accessor :current_password
 
   acts_as_paranoid
   has_many :posts, dependent: :destroy
@@ -21,18 +21,18 @@ class User < ApplicationRecord
 
   def new_password_error(password)
     if password.blank?
-      errors.add(:new_password, message: "New Password can't be blank")
+      errors.add(:password, message: "New Password can't be blank")
     elsif password.length < 8
-      errors.add(:new_password, message: "New Password is not secure please try again. " \
+      errors.add(:password, message: "New Password is not secure please try again. " \
                  "( Must contain 8 or more characters)")
     end
   end
 
   def password_confirmation_error(confirm, password)
     if confirm.blank?
-      errors.add(:new_password_confirmation, message: "Password Confirmation can't be blank")
+      errors.add(:password_confirmation, message: "Password Confirmation can't be blank")
     elsif confirm != password && password.length > 7
-      errors.add(:new_password_confirmation,
+      errors.add(:password_confirmation,
                  message: "New Password and Password Confirmation not match")
     end
   end
