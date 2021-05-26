@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   validates :name, :email, presence: true
   validates :email, uniqueness: { case_sensitive: false }
-  has_secure_password validations: false
+  has_secure_password
 
   def validate_password(params)
     new_password_error(params[:password])
