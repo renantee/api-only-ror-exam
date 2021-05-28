@@ -8,18 +8,21 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }
   has_secure_password
 
-  def validate_password(params)
-    new_password_error(params[:password])
-    password_confirmation_error(params[:password_confirmation], params[:password])
+  def validate
+    current_password_error
+    new_password_error
+    password_confirmation_error
+  end
 
-    if params[:current_password].blank?
+  def current_password_error
+    if current_password.blank?
       errors.add(:current_password, message: "Current Password can't be blank")
-    elsif authenticate(params[:current_password]) == false
+    elsif User.find_by(id: id).authenticate(current_password) == false
       errors.add(:current_password, message: "Current Password is Invalid")
     end
   end
 
-  def new_password_error(password)
+  def new_password_error
     if password.blank?
       errors.add(:password, message: "New Password can't be blank")
     elsif password.length < 8
@@ -28,10 +31,10 @@ class User < ApplicationRecord
     end
   end
 
-  def password_confirmation_error(confirm, password)
-    if confirm.blank?
+  def password_confirmation_error
+    if password_confirmation.blank?
       errors.add(:password_confirmation, message: "Password Confirmation can't be blank")
-    elsif confirm != password && password.length > 7
+    elsif password_confirmation != password && password.present?
       errors.add(:password_confirmation,
                  message: "New Password and Password Confirmation not match")
     end
